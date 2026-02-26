@@ -1,5 +1,6 @@
 import { computed, signal } from "./signal.js";
 export class MeteoService{
+
     constructor(){
         this.url= 'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m&forecast_days=1&temperature_unit=fahrenheit';
         this.tempSignal = signal([]);
@@ -11,8 +12,7 @@ export class MeteoService{
                 celsiusArray.push(celsiusObj);
             }
             return celsiusArray;
-        }
-        )
+        }, [this.tempSignal]);
         this.getTemperature();
     }
     getTemperature(){

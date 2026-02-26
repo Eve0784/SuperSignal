@@ -20,4 +20,11 @@ import { effect } from "./signal.js";
 
 const mServ = new MeteoService();
 
-effect(()=>console.log("sono l'effect, le temperatures sono cambiate", mServ.tempSignal(), mServ.celsiusSignal()), [mServ.tempSignal, mServ.celsiusSignal])
+
+effect(() => {
+    document.body.innerHTML = ''
+    for (let i = 0; i < mServ.tempSignal().length; i++) {
+        const card = `<div>time: ${mServ.tempSignal()[i].time}, fahrenheit:${mServ.tempSignal()[i].temp}, celsius: ${mServ.celsiusSignal()[i].temp} <div>`
+        document.body.innerHTML+=card;
+    }
+}, [mServ.tempSignal, mServ.celsiusSignal])
